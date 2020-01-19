@@ -1,0 +1,39 @@
+/*main customise*/
+/*Sign in window size modify*/
+.signInWindowModifySize{
+  height: 350px;
+  width: 300px;
+}
+/*Sign in window size modify*/
+/*Register window size modify*/
+.registerWindowModifySize{
+  height: 450px;
+  width: 300px;
+}
+/*Register window size modify*/
+/*product card img size modify*/
+.productCardModifySize{
+  height: 280px;
+}
+/*product card img size modify*/
+/*main customise end*/
+
+a[type='submit']{
+  -webkit-appearance: none;
+}
+
+/*add window modify*/
+.addWindowModify{
+  width: 380px;
+}
+/*add window modify*/
+
+/*quantity window modify*/
+.quantityWindowModify{
+  width: 250px;
+}
+
+/*delete order confirmation window modify*/
+.deleteConfirmationWindowModify{
+  width: 250px;
+}

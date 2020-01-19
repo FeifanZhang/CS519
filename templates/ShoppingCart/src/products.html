@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="../../../static/css/materialize.css" media="screen,projection"/>
+  <!-- Import customise.css -->
+  <link rel="stylesheet" href="../../../static/css/customise.css">
+  <!--Let browser know website is optimized for mobile-->
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>shopping cart</title>
+
+</head>
+<body>
+<!-- header -->
+<!-- navi -->
+<nav>
+  <div class="nav-wrapper #424242 grey darken-3">
+  {% if username %}
+    <a href="#!" class="brand-logo">{{ username }}</a>
+  {% else %}
+    <a href="#!" class="brand-logo">Guest</a>
+  {% endif %}
+    <ul class="right hide-on-med-and-down">
+
+        {% if username %}
+            <!-- Sign window trigger here -->
+         <li><a href="/shoppingCart/logOut/" class="btn modal-trigger">Log out</a></li>
+            <!-- Sign window trigger end here -->
+        {% else %}
+            <!-- Sign window trigger here -->
+            <li><a href="sass.html" data-target="modal1" class="btn modal-trigger">Sign in/Register</a></li>
+            <!-- Sign window trigger end here -->
+        {% endif %}
+
+      <!-- Sign window here -->
+      <!-- Modal Structure -->
+      <div id="modal1" class="modal signInWindowModifySize">
+
+        <div class="modal-content">
+          <div class="row">
+            <div class="col s12" >
+              <div class="row">
+                <div class="input-field col s12">
+                  <input name="email" id="email" type="email" class="validate">
+                  <label for="email">Email</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input name="password" id="password" type="password" class="validate">
+                  <label for="password">Password</label>
+                </div>
+              </div>
+             </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <!-- Sign trigger here -->
+          <button id="signAction" type="submit" class="modal-close waves-effect waves-green btn-flat">Sign in</button>
+            {% csrf_token %}
+          <!-- Sign trigger end here -->
+          <!-- Register window trigger here -->
+          <a href="#modal2" type="submit" class="modal-close waves-effect waves-green btn-flat modal-trigger">Register</a>
+          <!-- Register window trigger end here -->
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+        </div>
+
+      </div>
+      <!-- Sign window end here -->
+      <!-- Register window here -->
+      <div id="modal2" class="modal registerWindowModifySize">
+           <div class="col s12" name ="userInfo" id="userInfo">
+        <div class="modal-content">
+          <div class="row">
+              <div class="modal-content">
+                  <div class="row">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input name="re_username" id="re_username" type="text" class="validate">
+                    <label for="re_username">User Name</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input name="re_email"id="re_email" type="email" class="validate">
+                    <label for="re_email">Email</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input name="re_password"id="re_password" type="password" class="validate">
+                    <label for="re_password">Password</label>
+                  </div>
+                </div>
+                  <div class="row">
+                  <div class="input-field col s12">
+                    <label id="errors" for="re_password"></label>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <!-- register trigger here -->
+                <button id="registerAction" onclick="register()" type="submit" class="modal-close waves-effect waves-green btn-flat">Register</button>
+                  {% csrf_token %}
+                <!-- register trigger end here -->
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+              </div>
+
+          </div>
+        </div>
+               </div>
+      </div>
+      <!-- Register window end here -->
+     {% if username %}
+      <li><a href="/shoppingCart/cart/">Cart</a></li>
+     {% endif %}
+      <!-- Dropdown Trigger -->
+      <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Setting<i class="material-icons right">arrow_drop_down</i></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+  <li><a href="#!">account</a></li>
+  <li><a href="#!">address</a></li>
+  <li class="divider"></li>
+  <li><a href="#!">orders</a></li>
+</ul>
+<!-- Dropdown Structure end here -->
+<!-- navi end here -->
+
+<div class="container">
+
+  <!-- content -->
+  <div class="row">
+<div class="container">
+  <!-- header end here -->
+  <div class="row">
+    <div class="col s12 offset-l1">
+      <img class="materialboxed" width="650" src="../../../static/img/product/shouban.jpg">
+    </div>
+  </div>
+</div>
+<!-- content -->
+
+
+<!-- content -->
+</div>
+        </div>
+
+  </div>
+  <!-- content -->
+</div>
+<script type="text/javascript" src="../../../static/js/jquery-3.3.1.js">
+</script>
+
+<script type="text/javascript" src="../../../static/js/materialize.min.js"></script>
+<script type="text/javascript" src="../../../static/js/dataFlow.js"></script>
+<script>
+  $(document).ready(function () {
+    $(".dropdown-trigger").dropdown();
+    $('.modal').modal();
+    $('input.autocomplete').autocomplete({
+      data: {
+        "Apple": null,
+        "Microsoft": null,
+        // "Google": 'https://placehold.it/250x250'
+      },
+    });
+    $('.carousel').carousel();
+    $('.materialboxed').materialbox();
+  });
+</script>
+
+
+</body>
+</html>
+

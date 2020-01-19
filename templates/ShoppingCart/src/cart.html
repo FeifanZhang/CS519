@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="../../../static/css/materialize.css" media="screen,projection"/>
+  <!-- Import customise.css -->
+  <link rel="stylesheet" href="../../../static/css/customise.css">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>cart</title>
+</head>
+<body>
+<!-- header -->
+<!-- navi -->
+<nav>
+  <div class="nav-wrapper #424242 grey darken-3">
+    {% if username %}
+    <a href=" " class="brand-logo">{{ username }}</a>
+    {% endif %}
+    <ul class="right hide-on-med-and-down">
+      <li><a href={% url "logOut" %} data-target="modal1" class="btn modal-trigger">Log out</a></li>
+      <li><a href={% url "homepage" %}><button class="waves-effect waves-light btn cartButtonModify">Homepage</button></a></li>
+      <!-- Dropdown Trigger -->
+      <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Setting<i class="material-icons right">arrow_drop_down</i></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+  <li><a href={% url "promotionPage" %}>promotion</a></li>
+  <li class="divider"></li>
+  <li><a href={% url "orderPage" %}>orders</a></li>
+</ul>
+<!-- Dropdown Structure end here -->
+<!-- navi end here -->
+<!-- items operation button -->
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large">
+    <i class="large material-icons">mode_edit</i>
+  </a>
+  <ul>
+    <li id="check_out_btn1" class="modal-trigger" href="#modal_check_out"><a class="btn-floating red"><i class="material-icons">local_grocery_store</i></a></li>
+    <li class="modal-trigger" href="#modal_delete_order_confirmation"><a class="btn-floating yellow darken-1"><i class="material-icons">delete</i></a></li>
+  </ul>
+</div>
+<!-- items operation button end -->
+<!-- items table -->
+<div class="container">
+  <div class="row">
+    <div class="row">
+      <div class="col s9 offset-s2">
+        <table id="order_list" class="highlight centered">
+          <thead>
+          <tr>
+            <th>
+              <label>
+                <input id="selectAll" type="checkbox" class="switch"/>
+                <span style="color: black">Select</span>
+              </label>
+            </th>
+            <th>Item Name</th>
+            <th>Item Price($)</th>
+            <th>Item Quantity</th>
+          </tr>
+          </thead>
+          <form class="s12">
+            <tbody>
+            {% for i in cartList %}
+            <tr>
+              <td>
+                <p>
+                  <label>
+                    <input type="checkbox"/>
+                    <span></span>
+                  </label>
+                </p >
+              </td>
+              <td>{{i.productName }}</td>
+              <td><a href="" style="color: black">{{  i.price }}</a></td>
+              <td id="{{ i.id }}" class="tooltipped modal-trigger" data-tooltip="Click to modify the quantity" href="#modal_quantity">{{ i.quantity }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </form>
+            <!-- modify quantity Window -->
+          <form action={% url "modifyQuantity" %} method="post">
+            <div id="modal_quantity" class="modal quantityWindowModify">
+              <div class="modal-content">
+                <div class="row">
+                  <div class="col s12">
+                    Enter quantity:
+                    <div class="input-field inline">
+                      <input id="modify_quantity" name ="quantity" type="text" class="validate">
+                      <label id="quantity_hover" for="modify_quantity"></label>
+                      <input id="modified_item_id" hidden name="cartId">
+                      <!--<span class="helper-text" data-error="wrong" data-success="right">Helper text</span>-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button value="Modify" id="modify_btn"  class="modal-close waves-effect waves-green btn-flat">Modify</button>
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+              </div>
+            </div>
+          </form>
+            <!-- delete order confirmation window -->
+          <form action={% url "deleteProductItem" %} method="post">
+            <div id="modal_delete_order_confirmation" class="modal deleteConfirmationWindowModify">
+              <div class="modal-content">
+                <h4>Confirmation</h4>
+                <p>Do you want to delete ?</p >
+              </div>
+              <div class="modal-footer">
+                <button id="delete_btn"  class="modal-close waves-effect waves-green btn-flat">delete</button>
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">cancel</a>
+                <input id="delete_items_id" name="delete_items_id"></input>
+              </div>
+            </div>
+          </form>
+            <!-- delete order confirmation window end -->
+            <!-- check out window -->
+          <form action={% url "checkOut" %} method="post">
+            <div id="modal_check_out" class="modal modal-fixed-footer">
+              <div class="modal-content">
+                <h5>Please fill in the info</h5>
+                <h7 name="price" id="show_total_prise"></h7>
+              <input hidden id="total_prise" name="price">
+                <div class="row">
+                  <div class="col s12">
+                    <div class="row">
+                      <div class="input-field col s6">
+                        <input id="first_name" name="firstName" placeholder="First Name" type="text" class="validate">
+                        <label for="first_name"></label>
+                      </div>
+                      <div class="input-field col s6">
+                        <input id="last_name" name="lastName" placeholder="Last Name" type="text" class="validate">
+                        <label for="last_name"></label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="address" name="address" placeholder="Address" type="text" class="validate">
+                        <label for="address"></label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <select id="areas">
+                          <option value="" disabled selected>Billing Address</option>
+                            {% for key,value in taxList.items %}
+                          <option name="tax"value="1" id={{ value }}>{{ key }} </option>
+                            {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="email" name="promotionNum" placeholder="Promotion Code" type="text" class="validate">
+                        <label for="email"></label>
+                                        <input hidden id="check_items_id" name="check_items_id"></input>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button id="check_out_btn2" class="modal-close waves-effect waves-green btn-flat">Check Out</button>
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+              </div>
+            </div>
+            </form>
+            <!-- alert info should be filled -->
+            <!--M.toast({html: 'All info should be filled'})-->
+            <!-- check out window -->
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- items table end -->
+<script type="text/javascript" src="../../../static/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="../../../static/js/materialize.min.js"></script>
+<script type="text/javascript" src="../../../static/js/customise.js"></script>
+
+<script>
+  $(document).ready(function () {
+      $('select').formSelect();
+    $('.tooltipped').tooltip();
+    $(".dropdown-trigger").dropdown();
+    $('.modal').modal();
+    $('input.autocomplete').autocomplete({
+      data: {
+        "Apple": null,
+        "Microsoft": null,
+        // "Google": 'https://placehold.it/250x250'
+      },
+    });
+    $('.carousel').carousel();
+    $('.tap-target').tapTarget();
+    $('.fixed-action-btn').floatingActionButton();
+  });
+</script>
+</body>
+</html>

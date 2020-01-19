@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="../../../static/css/materialize.css" media="screen,projection"/>
+  <!-- Import customise.css -->
+  <link rel="stylesheet" href="../../../static/css/customise.css">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>cart</title>
+</head>
+<body>
+<!-- header -->
+<!-- navi -->
+<nav>
+  <div class="nav-wrapper #424242 grey darken-3">
+    {% if username %}
+    <a href=" " class="brand-logo">{{ username }}</a>
+    {% endif %}
+    <ul class="right hide-on-med-and-down">
+      <li><a href={% url "logOut" %} data-target="modal1" class="btn modal-trigger">Log out</a></li>
+      <li><a href={% url "homepage" %}><button class="waves-effect waves-light btn cartButtonModify">Homepage</button></a></li>
+      <!-- Dropdown Trigger -->
+      <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Setting<i class="material-icons right">arrow_drop_down</i></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+  <li class="divider"></li>
+  <li><a href={% url "orderPage" %}>orders</a></li>
+</ul>
+<!-- Dropdown Structure end here -->
+<!-- navi end here -->
+<!-- items table -->
+<div class="container">
+  <div class="row">
+    <div class="row">
+      <div class="col s9 offset-s2">
+        <table id="order_list" class="highlight centered">
+          <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Discount</th>
+            <th>Promotion Code</th>
+            <th>Expire Date</th>
+          </tr>
+          </thead>
+          <form class="s12">
+            <tbody>
+            {% for i in promotionList %}
+            <tr>
+              <td>{{i.productName }}</td>
+              <td>{{i.discount }}</td>
+              <td>{{i.promotionNum }}</td>
+              <td>{{  i.expireDate }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </form>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- items table end -->
+<script type="text/javascript" src="../../../static/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="../../../static/js/materialize.min.js"></script>
+<script type="text/javascript" src="../../../static/js/customise.js"></script>
+
+<script>
+  $(document).ready(function () {
+      $('select').formSelect();
+    $('.tooltipped').tooltip();
+    $(".dropdown-trigger").dropdown();
+    $('.modal').modal();
+    $('input.autocomplete').autocomplete({
+      data: {
+        "Apple": null,
+        "Microsoft": null,
+        // "Google": 'https://placehold.it/250x250'
+      },
+    });
+    $('.carousel').carousel();
+    $('.tap-target').tapTarget();
+    $('.fixed-action-btn').floatingActionButton();
+  });
+</script>
+</body>
+</html>

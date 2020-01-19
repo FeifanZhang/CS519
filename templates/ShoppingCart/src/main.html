@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="../../../static/css/materialize.css" media="screen,projection"/>
+  <!-- Import customise.css -->
+  <link rel="stylesheet" href="../../../static/css/customise.css">
+  <!--Let browser know website is optimized for mobile-->
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>shopping cart</title>
+
+</head>
+<body>
+<!-- header -->
+<!-- navi -->
+<nav>
+  <div class="nav-wrapper #424242 grey darken-3">
+  {% if username %}
+    <a href="#!" class="brand-logo">{{ username}}</a>
+  {% else %}
+    <a href="#!" class="brand-logo">Guest</a>
+  {% endif %}
+    <ul class="right hide-on-med-and-down">
+
+        {% if username %}
+            <!-- Sign window trigger here -->
+         <li><a href="/shoppingCart/logOut/" class="btn modal-trigger">Log out</a></li>
+            <!-- Sign window trigger end here -->
+        {% else %}
+            <!-- Sign window trigger here -->
+            <li><a href="sass.html" data-target="modal1" class="btn modal-trigger">Sign in/Register</a></li>
+            <!-- Sign window trigger end here -->
+        {% endif %}
+
+      <!-- Sign window here -->
+      <!-- Modal Structure -->
+      <div id="modal1" class="modal signInWindowModifySize">
+
+        <div class="modal-content">
+          <div class="row">
+            <div class="col s12" >
+              <div class="row">
+                <div class="input-field col s12">
+                  <input name="email" id="email" type="email" class="validate">
+                  <label for="email">email</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input name="password" id="password" type="password" class="validate">
+                  <label for="password">Password</label>
+                </div>
+              </div>
+             </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <!-- Sign trigger here -->
+          <button id="signAction" type="submit" class="modal-close waves-effect waves-green btn-flat">Sign in</button>
+            {% csrf_token %}
+          <!-- Sign trigger end here -->
+          <!-- Register window trigger here -->
+          <a href="#modal2" type="submit" class="modal-close waves-effect waves-green btn-flat modal-trigger">Register</a>
+          <!-- Register window trigger end here -->
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+        </div>
+
+      </div>
+      <!-- Sign window end here -->
+      <!-- Register window here -->
+      <div id="modal2" class="modal registerWindowModifySize">
+           <div class="col s12" name ="userInfo" id="userInfo">
+        <div class="modal-content">
+          <div class="row">
+              <div class="modal-content">
+                  <div class="row">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input name="re_username" id="re_username" type="text" class="validate">
+                    <label for="re_username">User Name</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input name="re_email"id="re_email" type="email" class="validate">
+                    <label for="re_email">Email</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input name="re_password"id="re_password" type="password" class="validate">
+                    <label for="re_password">Password</label>
+                  </div>
+                </div>
+                  <div class="row">
+                  <div class="input-field col s12">
+                    <label id="errors" for="re_password"></label>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <!-- register trigger here -->
+                <button id="registerAction" onclick="register()" type="submit" class="modal-close waves-effect waves-green btn-flat">Register</button>
+                  {% csrf_token %}
+                <!-- register trigger end here -->
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+              </div>
+
+          </div>
+        </div>
+               </div>
+      </div>
+      <!-- Register window end here -->
+     {% if username %}
+      <li><a href="/shoppingCart/cartPage/">Cart</a></li>
+     {% endif %}
+      <!-- Dropdown Trigger -->
+    {% if username %}
+      <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Setting<i class="material-icons right">arrow_drop_down</i></a>
+      {% endif %}
+      </li>
+    </ul>
+  </div>
+</nav>
+<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+  <li><a href={% url "promotionPage" %}>promotion</a></li>
+  <li class="divider"></li>
+  <li><a href={% url "orderPage" %}>orders</a></li>
+</ul>
+<!-- Dropdown Structure end here -->
+<!-- navi end here -->
+
+<div class="container">
+  <!-- Search bar here -->
+  <div class="row">
+    <div class="row">
+      <div class="col s12">
+        <div class="row">
+          <div class="input-field col s12">
+{#            <i class="material-icons prefix">search</i>i#}
+            <form action={% url "homepage" %} method="post">
+              <div class="col s10">
+            <input type="text" placeholder="Search" name="keyword" id="autocomplete-input" class="autocomplete">
+
+                </div>
+              <div class="col s2">
+              <input type="submit" value="enter" class="btn">
+                </div>
+              </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Search bar end here -->
+    <!-- carousel -->
+    <div class="col s12">
+      <div class="carousel carousel-slider center card-panel hoverable">
+        <div class="carousel-fixed-item center">
+          <!-- This is a button -->
+          <a class="btn waves-effect white grey-text darken-text-2 #e1f5fe light-blue lighten-5" style="opacity: 0.5;">LAST</a>
+          <!-- This is a button end here -->
+        </div>
+        <a class="carousel-item white-text" href="#one!">
+          <img src="../../../static/img/carouselPic/Ash.jpg" height="100%" width="100%"/>
+          <h2>First Panel</h2>
+          <p class="white-text">This is your first panel</p>
+        </a>
+        <a class="carousel-item white-text" href="#two!">
+          <img src="../../../static/img/carouselPic/blood.jpg" height="100%" width="100%"/>
+          <h2>Second Panel</h2>
+          <p class="white-text">This is your second panel</p>
+        </a>
+        <a class="carousel-item white-text" href="#three!">
+          <img src="../../../static/img/carouselPic/2b.jpg" height="100%" width="100%"/>
+          <h2>Third Panel</h2>
+          <p class="white-text">This is your third panel</p>
+        </a>
+        <a class="carousel-item white-text" href="#four!">
+          <img src="../../../static/img/carouselPic/hunter.jpg" height="100%" width="100%"/>
+          <h2>Fourth Panel</h2>
+          <p class="white-text">This is your fourth panel</p>
+        </a>
+      </div>
+    </div>
+    <!-- carousel end here -->
+    <!-- header end here -->
+  </div>
+  <!-- content -->
+  <div class="row">
+    {% for i in productList %}
+      <div class="col s4 m6">
+      <div class="card card-panel hoverable">
+        <form action={% url "addIntoCart" %} method="post">
+        <div class="card-image">
+          <img  href="products.html" src="{{ i.img }}" class="productCardModifySize materialboxed$ materialboxed" data-caption="{{ i.introduction }}">
+          <span class="card-title">{{ i.name }}</span>
+          <button class="btn-floating halfway-fab waves-effect waves-light red"><i type="submit" class="material-icons">add</i></button>
+        </div>
+        <div class="card-content">
+          <input type="hidden"name="productId" value="{{ i.id }}">
+          <p class="truncate">Price:{{ i.price }}</p>
+          <p class="truncate">Quantity:{{ i.quantity }}</p>
+        </div>
+        </form>
+      </div>
+    </div>
+
+    {% endfor %}
+  </div>
+  <!-- content -->
+
+</div>
+<script type="text/javascript" src="../../../static/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="../../../static/js/materialize.min.js"></script>
+<script type="text/javascript" src="../../../static/js/dataFlow.js"></script>
+<script>
+  $(document).ready(function () {
+    $('.materialboxed').materialbox();
+    $(".dropdown-trigger").dropdown();
+    $('.modal').modal();
+    $('input.autocomplete').autocomplete({
+      data: {
+        "Apple": null,
+        "Microsoft": null,
+        // "Google": 'https://placehold.it/250x250'
+      },
+    });
+    $('.carousel').carousel();
+    $('.materialboxed').materialbox();
+  });
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection"/>
+  <!-- Import customise.css -->
+  <link rel="stylesheet" href="css/customise.css">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>administrator</title>
+</head>
+<body>
+<!-- header -->
+<!-- navi -->
+<nav>
+  <div class="nav-wrapper #424242 grey darken-3">
+    <a href="#!" class="brand-logo">Logo</a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="main.html" data-target="modal1" class="btn modal-trigger">log out</a></li>
+      <li><a href="cart.html">Cart</a></li>
+      <!-- Dropdown Trigger -->
+      <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+  <li><a href="#!">one</a></li>
+  <li><a href="#!">two</a></li>
+  <li class="divider"></li>
+  <li><a href="#!">three</a></li>
+</ul>
+<!-- Dropdown Structure end here -->
+<!-- navi end here -->
+<!-- Search bar here -->
+<div class="container">
+  <div class="row">
+    <div class="row">
+      <div class="col s12">
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">search</i>
+            <input type="text" id="autocomplete-input" class="autocomplete">
+            <label for="autocomplete-input">Search</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Search bar end here -->
+<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(".dropdown-trigger").dropdown();
+    $('.modal').modal();
+    $('input.autocomplete').autocomplete({
+      data: {
+        "Apple": null,
+        "Microsoft": null,
+        // "Google": 'https://placehold.it/250x250'
+      },
+    });
+    $('.carousel').carousel();
+    $('.tap-target').tapTarget();
+    $('.fixed-action-btn').floatingActionButton();
+  });
+</script>
+</body>
+</html>
